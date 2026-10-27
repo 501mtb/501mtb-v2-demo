@@ -1,0 +1,1 @@
+Logos 501MTB. Le fichier importé sera nommé logo-001.png.
