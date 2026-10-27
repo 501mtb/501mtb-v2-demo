@@ -1,0 +1,1 @@
+Éléments graphiques PNG. Les fichiers seront nommés graphic-001.png à graphic-003.png.
