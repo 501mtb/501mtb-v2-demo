@@ -21,7 +21,7 @@
 <section id="events"><div class="eyebrow" data-i18n="eventsEyebrow">What's happening</div><h2 data-i18n="eventsTitle">501MTB <span>Events</span></h2><p class="intro" data-i18n="eventsIntro">Races, community rides and activities.</p><div class="cards" id="events-list"><article class="card"><p>Loading events…</p></article></div></section>
 <section id="riders"><div class="eyebrow" data-i18n="ridersEyebrow">Our community</div><h2 data-i18n="ridersTitle">Meet the <span>Riders</span></h2><div class="cards" id="riders-list"><article class="card"><p>Loading riders…</p></article></div></section>
 <section id="leaders"><div class="eyebrow" data-i18n="leadersEyebrow">The people behind 501MTB</div><h2 data-i18n="leadersTitle">Our <span>Team</span></h2><div class="cards" id="leaders-list"><article class="card"><p>Loading team…</p></article></div></section>
-<section id="links"><div class="eyebrow" data-i18n="linksEyebrow">Stay connected</div><h2 data-i18n="linksTitle">Useful <span>Links</span></h2><div class="cards"><article class="card"><h3>Facebook · 501MTB</h3><p>Follow the official 501MTB community page.</p><p><a class="button primary" href="https://www.facebook.com/501MTB" target="_blank" rel="noopener noreferrer">Open Facebook page</a></p></article></div></section>
+<section id="links"><div class="eyebrow" data-i18n="linksEyebrow">Stay connected</div><h2 data-i18n="linksTitle">Useful <span>Links</span></h2><div class="cards" id="links-list"><article class="card"><p>Loading links…</p></article></div></section>
 
 <section id="community"><div class="callout"><div><div class="eyebrow" data-i18n="together">Stronger together</div><h2 data-i18n="communityTitle">One community. <span>One ride at a time.</span></h2><p class="intro" data-i18n="communityText">Events · Trail rides · Rider support · Community</p></div><a class="button primary" href="https://501mtb.github.io/" data-i18n="explore">Explore 501MTB</a></div></section>
 </main><footer>© <span id="year"></span> 501MTB · <span data-i18n="footer">Mountain biking Madagascar</span> · <a href="https://501mtb.github.io/">V1 website</a> · <a href="./conduct-fr.html" data-i18n="conductFooter">Conduite interne</a> · <a href="./join.html" data-i18n="joinFooter">Join 501MTB</a></footer>
@@ -59,19 +59,22 @@ document.getElementById("year").textContent=new Date().getFullYear();
     const events = readSheet(workbook,"Events").filter(r => val(r,"id") && ["planned","open","completed"].includes(val(r,"status").toLowerCase()));
     const riders = visible(readSheet(workbook,"Riders")).filter(r => val(r,"id") && val(r,"name"));
     const leaders = visible(readSheet(workbook,"Leaders")).filter(r => val(r,"id") && val(r,"name"));
+    const links = visible(readSheet(workbook,"Links")).filter(r => val(r,"id") && val(r,"url"));
     const image = (path, alt) => path ? '<img src="'+safe(path)+'" alt="'+safe(alt)+'" loading="lazy" style="width:100%;max-height:210px;object-fit:cover;margin-bottom:12px">' : "";
     const anchor = (url,label) => url ? '<p><a class="button" href="'+safe(url)+'" target="_blank" rel="noopener">'+safe(label)+'</a></p>' : "";
     renderCards("events-list", events, r => '<article class="card">'+image(val(r,"image"),localized(r,"title"))+'<div class="number">'+safe(val(r,"date_start"))+'</div><h3>'+safe(localized(r,"title"))+'</h3><p>'+safe(localized(r,"location"))+'</p><p>'+safe(localized(r,"description"))+'</p>'+anchor(val(r,"url"),"More information")+'</article>', "No events published yet.");
     renderCards("riders-list", riders, r => '<article class="card">'+image(val(r,"photo"),val(r,"name"))+'<h3>'+safe(val(r,"name"))+'</h3><p>'+safe(val(r,"category"))+(val(r,"country") ? " · "+safe(val(r,"country")) : "")+'</p><p>'+safe(localized(r,"bio"))+'</p>'+anchor(val(r,"profile_url"),"View profile")+'</article>', "Rider profiles will appear here.");
     renderCards("leaders-list", leaders, r => '<article class="card">'+image(val(r,"photo"),val(r,"name"))+'<h3>'+safe(val(r,"name"))+'</h3><p>'+safe(localized(r,"role"))+'</p><p>'+safe(localized(r,"bio"))+'</p>'+anchor(val(r,"profile_url"),"More information")+'</article>', "Team profiles will appear here.");
+    renderCards("links-list", links, r => '<article class="card"><h3>'+safe(localized(r,"label"))+'</h3><p>'+safe(val(r,"category"))+'</p>'+anchor(val(r,"url"),"Open link")+'</article>', "Useful links will appear here.");
     document.getElementById("language").addEventListener("change", () => {
       // Re-render language-specific workbook text after the existing language selector updates the page.
       renderCards("events-list", events, r => '<article class="card">'+image(val(r,"image"),localized(r,"title"))+'<div class="number">'+safe(val(r,"date_start"))+'</div><h3>'+safe(localized(r,"title"))+'</h3><p>'+safe(localized(r,"location"))+'</p><p>'+safe(localized(r,"description"))+'</p>'+anchor(val(r,"url"),"More information")+'</article>', "No events published yet.");
       renderCards("riders-list", riders, r => '<article class="card">'+image(val(r,"photo"),val(r,"name"))+'<h3>'+safe(val(r,"name"))+'</h3><p>'+safe(val(r,"category"))+(val(r,"country") ? " · "+safe(val(r,"country")) : "")+'</p><p>'+safe(localized(r,"bio"))+'</p>'+anchor(val(r,"profile_url"),"View profile")+'</article>', "Rider profiles will appear here.");
       renderCards("leaders-list", leaders, r => '<article class="card">'+image(val(r,"photo"),val(r,"name"))+'<h3>'+safe(val(r,"name"))+'</h3><p>'+safe(localized(r,"role"))+'</p><p>'+safe(localized(r,"bio"))+'</p>'+anchor(val(r,"profile_url"),"More information")+'</article>', "Team profiles will appear here.");
+      renderCards("links-list", links, r => '<article class="card"><h3>'+safe(localized(r,"label"))+'</h3><p>'+safe(val(r,"category"))+'</p>'+anchor(val(r,"url"),"Open link")+'</article>', "Useful links will appear here.");
     });
   } catch(error) {
-    ["events-list","riders-list","leaders-list"].forEach(id => {
+    ["events-list","riders-list","leaders-list","links-list"].forEach(id => {
       document.getElementById(id).innerHTML = '<article class="card"><p>Content is not available yet. Upload <strong>Classeur_501MTB_V2.xlsx</strong> to the root of the V2 repository.</p></article>';
     });
   }
