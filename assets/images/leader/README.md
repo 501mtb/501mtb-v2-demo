@@ -1,0 +1,1 @@
+Images des leaders 501MTB. Les fichiers seront nommés leader-001.jpg à leader-007.jpg.
