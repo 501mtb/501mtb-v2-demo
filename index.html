@@ -81,10 +81,10 @@
 #riders-list h3,#leaders-list h3{font-size:.94rem;line-height:1.2;overflow-wrap:anywhere;margin:8px 0}
 #riders-list p,#leaders-list p{font-size:.8rem;line-height:1.35;margin:5px 0;color:var(--muted)}
 @media(min-width:721px){#riders-list>.card,#leaders-list>.card{flex-basis:170px;width:170px;min-width:170px}#riders-list .story-photo img,#leaders-list .story-photo img{height:200px!important;max-height:200px!important}}@media(min-width:721px){.story-rail .card{flex-basis:170px;min-width:170px}.story-rail .story-photo img{height:200px}}footer a{color:var(--green)}@media(max-width:720px){.nav{align-items:flex-start;flex-direction:column}nav{gap:14px}.hero{min-height:65vh}.cards{grid-template-columns:1fr}.callout{align-items:flex-start;flex-direction:column}section{padding-top:52px;padding-bottom:52px}}
-/* FINAL OVERRIDE: Riders and Team use two vertical items per horizontal column */
-#riders-list,#leaders-list{display:grid!important;grid-template-columns:repeat(2,142px)!important;grid-template-rows:none!important;grid-auto-flow:column!important;grid-auto-columns:142px!important;grid-auto-rows:auto!important;align-items:start!important;justify-content:start!important;overflow-x:auto!important;overflow-y:hidden!important;gap:12px 14px!important;max-height:none!important;height:auto!important;flex-wrap:initial!important}
-#riders-list>.card,#leaders-list>.card{grid-column:auto!important;grid-row:auto!important;align-self:start!important;flex:none!important;width:142px!important;min-width:142px!important;max-width:142px!important}
-@media(min-width:721px){#riders-list,#leaders-list{grid-template-columns:repeat(2,170px)!important;grid-auto-columns:170px!important}#riders-list>.card,#leaders-list>.card{width:170px!important;min-width:170px!important;max-width:170px!important}}
+/* FINAL OVERRIDE: Slightly larger Riders and Team cards, two rows with horizontal scrolling */
+#riders-list,#leaders-list{display:grid!important;grid-template-columns:repeat(2,160px)!important;grid-template-rows:none!important;grid-auto-flow:column!important;grid-auto-columns:160px!important;grid-auto-rows:auto!important;align-items:start!important;justify-content:start!important;overflow-x:auto!important;overflow-y:hidden!important;gap:14px 16px!important;max-height:none!important;height:auto!important;flex-wrap:initial!important}
+#riders-list>.card,#leaders-list>.card{grid-column:auto!important;grid-row:auto!important;align-self:start!important;flex:none!important;width:160px!important;min-width:160px!important;max-width:160px!important}
+@media(min-width:721px){#riders-list,#leaders-list{grid-template-columns:repeat(2,190px)!important;grid-auto-columns:190px!important}#riders-list>.card,#leaders-list>.card{width:190px!important;min-width:190px!important;max-width:190px!important}}
 </style>
 </head>
 <body>
