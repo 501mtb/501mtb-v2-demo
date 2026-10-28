@@ -205,6 +205,14 @@
 @media(max-width:600px){.pdp-section{min-height:250px;margin-top:-120px;padding:22px 10px;gap:4px;align-items:center}.pdp-emblem{width:60%;flex:0 1 60%;max-height:none;margin-left:0;transform:translateY(-12px)}.pdp-section .pdp-orbit{width:37%;margin-right:0!important;transform:translateY(0);padding:3px}}
 
 </style>
+
+/* 501MTB fixed Facebook share tab */
+#mtb-facebook-share{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:9999;display:flex;align-items:center;gap:9px;padding:13px 12px 13px 14px;background:#000000e9;color:#E5E5E7;border:1px solid #06ff06;border-right:0;border-radius:12px 0 0 12px;text-decoration:none;font:700 12px/1.2 Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 4px 18px #0006;transition:background .2s,color .2s,transform .2s}
+#mtb-facebook-share:hover,#mtb-facebook-share:focus-visible{background:#06ff06;color:#000;outline:2px solid #fff;outline-offset:2px}
+#mtb-facebook-share svg{width:22px;height:22px;flex:0 0 22px;fill:#1877F2}
+#mtb-facebook-share:hover svg,#mtb-facebook-share:focus-visible svg{fill:#000}
+@media(max-width:600px){#mtb-facebook-share{top:auto;bottom:22%;transform:none;padding:12px 10px 12px 12px;gap:0}#mtb-facebook-share .mtb-share-label{display:none}#mtb-facebook-share svg{width:24px;height:24px;flex-basis:24px}}
+
 </head>
 <body>
 <header><div class="nav"><a class="brand" href="#home" aria-label="501MTB home"><img src="./assets/images/logo/logoh.png" alt="501MTB logo"></a><select id="language" aria-label="Language"><option value="en">EN</option><option value="fr">FR</option><option value="mg">MG</option></select><button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="main-nav"><span></span><span></span><span></span></button><nav id="main-nav" aria-label="Main navigation"><a href="#home" data-i18n="home">Home</a><a href="#about" data-i18n="about">About</a><a href="#values" data-i18n="values">Values</a><a href="#community" data-i18n="community">Community</a><a href="#events" data-i18n="eventsNav">Events</a><a href="#riders" data-i18n="ridersNav">Riders</a></nav></div></header>
@@ -405,5 +413,11 @@ renderUsefulLinks();
   init();
 })();
 </script>
+
+
+<a id="mtb-facebook-share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2F501mtb.github.io%2F" target="_blank" rel="noopener noreferrer" aria-label="Partager le site 501MTB sur Facebook" title="Partager 501MTB sur Facebook">
+  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.413c0-3.025 1.792-4.697 4.533-4.697 1.313 0 2.686.236 2.686.236v2.97h-1.513c-1.49 0-1.952.93-1.952 1.885v2.266h3.32l-.531 3.49h-2.789V24C19.612 23.094 24 18.1 24 12.073Z"/></svg>
+  <span class="mtb-share-label">Partager</span>
+</a>
 
 </body></html>
