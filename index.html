@@ -263,6 +263,16 @@ document.querySelectorAll("#values .value-toggle").forEach(button=>{
     if (!response.ok) throw new Error("Workbook not found");
     const workbook = XLSX.read(await response.arrayBuffer(), {type:"array", cellDates:true});
     const events = readSheet(workbook,"Events").filter(r => val(r,"id") && ["planned","open","completed"].includes(val(r,"status").toLowerCase()));
+    // Confirmed update: Vohitrambato Bassindrano ride completed on 15 October 2026.
+    events.forEach(r => {
+      const rideName = [val(r,"title_en"),val(r,"title_fr"),val(r,"title_mg"),val(r,"title"),val(r,"location_en"),val(r,"location_fr"),val(r,"location_mg"),val(r,"location")].join(" ").toLowerCase();
+      if (rideName.includes("bassindrano")) {
+        r.status = "completed";
+        r.date_start = "15/10/2026";
+        r.url = "https://www.facebook.com/61559342776527/posts/122234023292311425/?app=fbl";
+        r.location_en = r.location_fr = r.location_mg = r.location = "Ivoloina · Vohitrambato · Bassindrano · 34 km";
+      }
+    });
     const upcomingEvents = events.filter(r => ["planned","open"].includes(val(r,"status").toLowerCase()));
     const pastEvents = events.filter(r => val(r,"status").toLowerCase() === "completed");
     const riders = visible(readSheet(workbook,"Riders")).filter(r => val(r,"id") && val(r,"name"));
