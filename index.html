@@ -165,6 +165,14 @@
 .value-toggle span{color:var(--green);font-size:1.3rem;flex-shrink:0}
 .value-long{margin-top:14px!important;padding-top:12px;border-top:1px solid #333;color:var(--muted);font-size:.98rem}
 .value-toggle:focus-visible{outline:2px solid var(--green);outline-offset:4px}
+
+#links-list.useful-links-box{display:block;margin-top:20px}
+#links-list .useful-links-card{min-height:0;padding:16px 20px}
+#links-list .useful-links-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0 22px}
+#links-list .useful-link-item{display:grid;grid-template-columns:1fr auto;align-items:center;gap:3px 12px;padding:12px 0;border-bottom:1px solid #292929}
+#links-list .useful-link-item strong{font-size:.98rem}
+#links-list .useful-link-category{grid-column:1/-1;color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:1px}
+#links-list .useful-link-item a{font-size:.85rem;color:var(--green);white-space:nowrap}
 </style>
 </head>
 <body>
@@ -247,7 +255,12 @@ document.querySelectorAll("#values .value-toggle").forEach(button=>{
     renderEventLists();
     renderCards("riders-list", riders, r => '<article class="card profile-card">'+storyImage(val(r,"photo"),val(r,"name"),val(r,"profile_url"))+'<div class="profile-badge">'+safe(val(r,"category") || val(r,"country") || "Rider")+'</div><h3 class="profile-name">'+safe(val(r,"name"))+'</h3><p class="profile-extra">'+safe(val(r,"country"))+'</p></article>', "Rider profiles will appear here.");
     renderCards("leaders-list", leaders, r => '<article class="card profile-card">'+storyImage(val(r,"photo"),val(r,"name"),val(r,"profile_url"))+'<div class="profile-badge">'+safe(localized(r,"role") || "Leader")+'</div><h3 class="profile-name">'+safe(val(r,"name"))+'</h3><p class="profile-extra">'+safe(localized(r,"bio"))+'</p></article>', "Team profiles will appear here.");
-    renderCards("links-list", links, r => '<article class="card"><h3>'+safe(localized(r,"label"))+'</h3><p>'+safe(val(r,"category"))+'</p>'+anchor(val(r,"url"),"Open link")+'</article>', "Useful links will appear here.");
+    const renderUsefulLinks = () => {
+  const el=document.getElementById("links-list");
+  el.classList.add("useful-links-box");
+  el.innerHTML = links.length ? '<article class="card useful-links-card"><div class="useful-links-grid">'+links.map(r=>'<div class="useful-link-item"><span class="useful-link-category">'+safe(val(r,"category"))+'</span><strong>'+safe(localized(r,"label"))+'</strong>'+anchor(val(r,"url"),lang()==="fr"?"Ouvrir":lang()==="mg"?"Sokafy":"Open link")+'</div>').join("")+'</div></article>' : '<article class="card">No useful links published.</article>';
+};
+renderUsefulLinks();
     document.getElementById("language").addEventListener("change", () => {
       // Re-render language-specific workbook text after the existing language selector updates the page.
       const eventCard = r => '<article class="card past-ride-card upcoming-ride-card">'+eventImage(val(r,"image"),localized(r,"title"),val(r,"url"))+'<div class="ride-glass"><div class="ride-glass-side ride-glass-date"><strong>'+safe(val(r,"date_start"))+'</strong></div><div class="ride-glass-side ride-glass-location"><strong>'+safe(localized(r,"location"))+'</strong></div><div class="ride-glass-side ride-glass-title"><strong>'+safe(localized(r,"title"))+'</strong></div></div></article>';
