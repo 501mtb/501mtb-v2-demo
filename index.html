@@ -311,7 +311,7 @@ renderUsefulLinks();
       renderUsefulLinks();
     });
   } catch(error) {
-    ["events-list","riders-list","leaders-list","links-list"].forEach(id => {
+    ["upcoming-events-list","past-events-list","riders-list","leaders-list","links-list"].forEach(id => {
       document.getElementById(id).innerHTML = '<article class="card"><p>Content is not available yet. Upload <strong>Classeur_501MTB_V2.xlsx</strong> to the root of the V2 repository.</p></article>';
     });
   }
