@@ -166,13 +166,16 @@
 .value-long{margin-top:14px!important;padding-top:12px;border-top:1px solid #333;color:var(--muted);font-size:.98rem}
 .value-toggle:focus-visible{outline:2px solid var(--green);outline-offset:4px}
 
-#links-list.useful-links-box{display:block;margin-top:20px}
-#links-list .useful-links-card{min-height:0;padding:16px 20px}
-#links-list .useful-links-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0 22px}
-#links-list .useful-link-item{display:grid;grid-template-columns:1fr auto;align-items:center;gap:3px 12px;padding:12px 0;border-bottom:1px solid #292929}
-#links-list .useful-link-item strong{font-size:.98rem}
-#links-list .useful-link-category{grid-column:1/-1;color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:1px}
-#links-list .useful-link-item a{font-size:.85rem;color:var(--green);white-space:nowrap}
+#links-list.useful-links-box{display:block;margin-top:28px}
+#links-list .useful-links-card{min-height:0;padding:20px 28px;background:#111;border:1px solid #292929}
+#links-list .useful-links-grid{display:grid;grid-template-columns:1fr;gap:0}
+#links-list .useful-link-item{display:grid;grid-template-columns:1fr 76px;grid-template-rows:auto auto;align-items:center;gap:7px 20px;padding:26px 0;border-bottom:1px solid #292929}
+#links-list .useful-link-item strong{grid-column:1;grid-row:2;font-size:1.3rem;line-height:1.25;overflow-wrap:anywhere}
+#links-list .useful-link-category{grid-column:1;grid-row:1;color:var(--muted);font-size:1rem;text-transform:uppercase;letter-spacing:2px}
+#links-list .useful-link-icon{grid-column:2;grid-row:1/3;justify-self:center;display:grid;place-items:center;width:64px;height:64px;border-radius:50%;background:var(--green);color:#050505;border:3px solid #050505;box-shadow:0 0 0 1px #333;text-decoration:none}
+#links-list .useful-link-icon svg{width:34px;height:34px;fill:currentColor}
+#links-list .useful-link-icon:focus-visible{outline:2px solid white;outline-offset:4px}
+@media(max-width:600px){#links-list .useful-links-card{padding:14px 18px}#links-list .useful-link-item{grid-template-columns:1fr 58px;gap:6px 12px;padding:22px 0}#links-list .useful-link-category{font-size:.82rem;letter-spacing:1.5px}#links-list .useful-link-item strong{font-size:1.12rem}#links-list .useful-link-icon{width:50px;height:50px}#links-list .useful-link-icon svg{width:27px;height:27px}}
 
 #home .hero-inner{width:100%;max-width:850px;margin:0 auto;padding:0}
 #home .hero h1{margin:16px 0}
@@ -263,7 +266,13 @@ document.querySelectorAll("#values .value-toggle").forEach(button=>{
     const renderUsefulLinks = () => {
   const el=document.getElementById("links-list");
   el.classList.add("useful-links-box");
-  el.innerHTML = links.length ? '<article class="card useful-links-card"><div class="useful-links-grid">'+links.map(r=>'<div class="useful-link-item"><span class="useful-link-category">'+safe(val(r,"category"))+'</span><strong>'+safe(localized(r,"label"))+'</strong>'+anchor(val(r,"url"),lang()==="fr"?"Ouvrir":lang()==="mg"?"Sokafy":"Open link")+'</div>').join("")+'</div></article>' : '<article class="card">No useful links published.</article>';
+  const items=[
+    {category:{en:"Social",fr:"Réseaux sociaux",mg:"Tambajotra sosialy"},label:"501 MTB",url:"https://www.facebook.com/501MTB",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V8c0-.9.3-1.5 1.6-1.5h1.7V3.7c-.3 0-1.4-.1-2.6-.1-2.6 0-4.3 1.6-4.3 4.5v1.8H7V13h2.9v8z"/></svg>'},
+    {category:{en:"Contact",fr:"Contact",mg:"Fifandraisana"},label:"WhatsApp · +261 34 93 715 00",url:"https://wa.me/261349371500",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 2 17.7L.5 23.5l6-1.6A11.8 11.8 0 0 0 20.5 3.5ZM12 21a9.7 9.7 0 0 1-4.9-1.3l-.4-.2-3.5.9.9-3.4-.2-.4A9.6 9.6 0 1 1 12 21Zm5.3-7.2c-.3-.2-1.7-.8-2-.9s-.5-.2-.7.2-.8.9-1 1.1-.4.2-.7.1a7.8 7.8 0 0 1-2.3-1.4 8.6 8.6 0 0 1-1.6-2c-.2-.3 0-.5.1-.6l.5-.6c.2-.2.2-.3.3-.5s0-.4 0-.5-.7-1.7-.9-2.3c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.4 1 2.8 1.2 3 2 3.1 5 4.3c.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.4s.2-1.3.2-1.4-.2-.3-.5-.4Z"/></svg>'},
+    {category:{en:"Contact",fr:"Contact",mg:"Fifandraisana"},label:"toamasina501mtb@gmail.com",url:"mailto:toamasina501mtb@gmail.com",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5.5A2.5 2.5 0 0 1 4.5 3h15A2.5 2.5 0 0 1 22 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 18.5zm2 .1v.2l8 5.4 8-5.4v-.2a.5.5 0 0 0-.5-.5h-15a.5.5 0 0 0-.5.5Zm16 2.6-8 5.4-8-5.4v10.3c0 .3.2.5.5.5h15c.3 0 .5-.2.5-.5Z"/></svg>'},
+    {category:{en:"Location",fr:"Localisation",mg:"Toerana"},label:"Lot 099bis Andranomena, Ambodisaina, Toamasina 2",url:"https://www.google.com/maps/search/?api=1&query=Lot+099bis+Andranomena%2C+Ambodisaina%2C+Toamasina+2",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7.2 7.2 0 0 0-7.2 7.2c0 5.2 7.2 12.8 7.2 12.8s7.2-7.6 7.2-12.8A7.2 7.2 0 0 0 12 2Zm0 10a2.8 2.8 0 1 1 0-5.6 2.8 2.8 0 0 1 0 5.6Z"/></svg>'}
+  ];
+  el.innerHTML='<article class="card useful-links-card"><div class="useful-links-grid">'+items.map(item=>'<a class="useful-link-item" href="'+safe(item.url)+'" target="'+(item.url.startsWith("mailto:")?"_self":"_blank")+'" rel="noopener"><span class="useful-link-category">'+safe(item.category[lang()]||item.category.en)+'</span><strong>'+safe(item.label)+'</strong><span class="useful-link-icon" aria-hidden="true">'+item.icon+'</span></a>').join("")+'</div></article>';
 };
 renderUsefulLinks();
     document.getElementById("language").addEventListener("change", () => {
@@ -274,7 +283,7 @@ renderUsefulLinks();
     renderEventLists();
       renderCards("riders-list", riders, r => '<article class="card">'+storyImage(val(r,"photo"),val(r,"name"),val(r,"profile_url"))+'<h3>'+safe(val(r,"name"))+'</h3><p>'+safe(val(r,"category"))+(val(r,"country") ? " · "+safe(val(r,"country")) : "")+'</p><p>'+safe(localized(r,"bio"))+'</p></article>', "Rider profiles will appear here.");
       renderCards("leaders-list", leaders, r => '<article class="card">'+storyImage(val(r,"photo"),val(r,"name"),val(r,"profile_url"))+'<h3>'+safe(val(r,"name"))+'</h3><p>'+safe(localized(r,"role"))+'</p><p>'+safe(localized(r,"bio"))+'</p></article>', "Team profiles will appear here.");
-      renderCards("links-list", links, r => '<article class="card"><h3>'+safe(localized(r,"label"))+'</h3><p>'+safe(val(r,"category"))+'</p>'+anchor(val(r,"url"),"Open link")+'</article>', "Useful links will appear here.");
+      renderUsefulLinks();
     });
   } catch(error) {
     ["events-list","riders-list","leaders-list","links-list"].forEach(id => {
