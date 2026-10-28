@@ -212,7 +212,7 @@
 <section class="hero" id="home"><div class="hero-slides" id="hero-slides" aria-hidden="true"></div><div class="hero-inner"><div class="eyebrow" data-i18n="eyebrow">Mountain biking · Madagascar</div><h1 data-i18n="headline">Where <span>Legends</span> Rise</h1><p data-i18n="heroText">We develop and promote mountain biking in Madagascar by bringing riders together through events, trail rides and community support.</p></div></section>
 <section class="pdp-section" aria-label="501MTB brand profile">
 <img class="pdp-emblem" src="assets/images/file_0000000082d482118973a179209741a5.png" alt="501MTB mountain, forest and mountain-bike emblem">
-<div class="pdp-orbit"><img src="https://raw.githubusercontent.com/501mtb/501mtb.github.io-v1/main/images/home/pdp.jpg" alt="501MTB profile logo"></div>
+<div class="pdp-orbit"><img src="./pdp%20(1).jpg" alt="501MTB profile logo"></div>
 </section>
 <section id="about"><div class="eyebrow" data-i18n="who">Who we are</div><h2 data-i18n="aboutTitle">Built by riders. <span>Driven by community.</span></h2><p class="intro" data-i18n="aboutText">501MTB is a mountain biking community in Toamasina, Madagascar, working to grow the sport, support riders and help more people discover the trails and the people behind them.</p></section>
 <section id="values"><div class="eyebrow" data-i18n="valuesEyebrow">Our values</div><h2 data-i18n="valuesTitle">Ride beyond <span>limits.</span></h2><div class="cards">
@@ -358,13 +358,12 @@ renderUsefulLinks();
   const imageFor=(row)=>{
     const path=safeUrl(row.image);
     if(!path)return "";
-    const title=String(row.title_en||row.title_fr||row.title_mg||row.title||"").trim().toLowerCase();
-    const date=String(row.date_start||"");
-    const known={"vohitrambato bassindrano":"10.jpg","antanambaovao tmf":"9.jpg","501 world bicycle day":"8.jpg","video shooting":"7.jpg","2nd xc antanambaotrail":"6.jpg","2nd xc trail survey":"5.jpg","2nd xc preparation":"4.jpg","tmf preparation":"3.jpg","toamasina tour":"2.jpg","tritriva r":"1.jpg","tmf|07/12/2025":"01.jpg","tmf|16/11/2025":"02.jpg","ivoloina":"X.jpg","saint marie":"Y.jpg","le pangalane":"Z.jpg"};
-    const original=known[title]||(title==="tmf"?(date.includes("07/12/2025")?"01.jpg":date.includes("16/11/2025")?"02.jpg":""):"");
-    if(original)return "https://501mtb.github.io/images/event/"+original;
-    if(/^https?:\/\//i.test(path)||path.startsWith("./")||path.startsWith("../")||path.startsWith("/"))return path;
-    return "./"+path.replace(/^\.\//,"");
+    if(/^https?:\/\//i.test(path))return path;
+    const clean=path.replace(/^\.\//,"").replace(/^\//,"");
+    if(clean.startsWith("images/event/"))return "./assets/"+clean;
+    if(clean.startsWith("assets/")||clean.startsWith("../"))return "./"+clean;
+    if(clean.includes("/"))return "./"+clean;
+    return "./assets/images/event/"+clean;
   };
   const init=async()=>{
     try{
