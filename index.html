@@ -259,28 +259,18 @@ document.querySelectorAll("#values .value-toggle").forEach(button=>{
     return val(row, base+"_"+l) || val(row, base+"_en") || val(row, base+"_fr") || val(row, base+"_mg") || "";
   }
   try {
-    const response = await fetch("./Classeur_501MTB_V2.xlsx?v=1", {cache:"no-store"});
+    const response = await fetch("./Classeur_501MTB_V2.xlsx?v=2", {cache:"no-store"});
     if (!response.ok) throw new Error("Workbook not found");
     const workbook = XLSX.read(await response.arrayBuffer(), {type:"array", cellDates:true});
     const events = readSheet(workbook,"Events").filter(r => val(r,"id") && ["planned","open","completed"].includes(val(r,"status").toLowerCase()));
-    // Confirmed update: Vohitrambato Bassindrano ride completed on 15 October 2026.
-    events.forEach(r => {
-      const rideName = [val(r,"title_en"),val(r,"title_fr"),val(r,"title_mg"),val(r,"title"),val(r,"location_en"),val(r,"location_fr"),val(r,"location_mg"),val(r,"location")].join(" ").toLowerCase();
-      if (rideName.includes("bassindrano")) {
-        r.status = "completed";
-        r.date_start = "15/10/2026";
-        r.url = "https://www.facebook.com/61559342776527/posts/122234023292311425/?app=fbl";
-        r.image = "./assets/images/event/completed/bassindrano-2026-10-15.jpg";
-        r.location_en = r.location_fr = r.location_mg = r.location = "Ivoloina · Vohitrambato · Bassindrano · 34 km";
-      }
-    });
-    const upcomingTemplates = events.filter(r => ["planned","open"].includes(val(r,"status").toLowerCase()));
-    const upcomingEvents = [
-      { ...(upcomingTemplates[0] || {}), id:"next-ride-1", status:"planned", date_start:"01/11/2026", title_en:"Ride to Lac Andovolalina", title_fr:"Sortie au Lac Andovolalina", title_mg:"Dia any Lac Andovolalina", title:"Ride to Lac Andovolalina", location_en:"Lac Andovolalina · 54 km · 08:00 in front of Barikadimy", location_fr:"Lac Andovolalina · 54 km · 08h00 devant Barikadimy", location_mg:"Lac Andovolalina · 54 km · 08:00 eo anoloan’i Barikadimy", location:"Lac Andovolalina · 54 km · 08h00 devant Barikadimy", image:"./assets/images/event/andovolalina.jpg", url:"" },
-      { ...(upcomingTemplates[1] || {}), id:"next-ride-2", status:"planned", date_start:"29/11/2026", title_en:"Makua Festival Carnival", title_fr:"Carnaval Makua Festival", title_mg:"Carnaval Makua Festival", title:"Carnaval Makua Festival", location_en:"12:30 · Loca Velo, Tanamakoa", location_fr:"12h30 · Loca Velo, Tanamakoa", location_mg:"12h30 · Loca Velo, Tanamakoa", location:"12h30 · Loca Velo, Tanamakoa", image:"./assets/images/event/carnaval.jpg", url:"" },
-      { ...(upcomingTemplates[2] || {}), id:"next-ride-3", status:"planned", date_start:"01/11/2026", title_en:"Makua Festival – After Party", title_fr:"Makua Festival – Party After", title_mg:"Makua Festival – Party After", title:"Makua Festival – Party After", location_en:"Stand No. 30", location_fr:"Stand N°30", location_mg:"Stand N°30", location:"Stand N°30", image:"./assets/images/event/party.jpg", url:"" }
-    ];
+    const upcomingEvents = events.filter(r => ["planned","open"].includes(val(r,"status").toLowerCase()));
     const pastEvents = events.filter(r => val(r,"status").toLowerCase() === "completed");
+    const dateLabel = value => {
+      const s=String(value ?? "").trim();
+      if (/^\d{4}-\d{2}-\d{2}/.test(s)) { const [y,m,d]=s.slice(0,10).split("-"); return d+"/"+m+"/"+y; }
+      if (/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(s)) { const [d,m,y]=s.split("/"); return d.padStart(2,"0")+"/"+m.padStart(2,"0")+"/"+y; }
+      return s;
+    };
     const riders = visible(readSheet(workbook,"Riders")).filter(r => val(r,"id") && val(r,"name"));
     const leaders = visible(readSheet(workbook,"Leaders")).filter(r => val(r,"id") && val(r,"name"));
     const links = visible(readSheet(workbook,"Links")).filter(r => val(r,"id") && val(r,"url"));
@@ -288,8 +278,8 @@ document.querySelectorAll("#values .value-toggle").forEach(button=>{
     const storyImage = (path, name, url) => '<div class="story-photo">' + image(path,name,true) + (url ? '<a class="story-link" href="'+safe(url)+'" target="_blank" rel="noopener" aria-label="Open '+safe(name)+'" title="Open link">↗</a>' : '') + '</div>';
     const anchor = (url,label) => url ? '<p class="compact-link-wrap"><a class="compact-link" href="'+safe(url)+'" target="_blank" rel="noopener" aria-label="'+safe(label)+'" title="'+safe(label)+'">↗</a></p>' : "";
     const originalRidePhotos = {"vohitrambato bassindrano":"10.jpg","antanambaovao tmf":"9.jpg","501 world bicycle day":"8.jpg","video shooting":"7.jpg","2nd xc antanambaotrail":"6.jpg","2nd xc trail survey":"5.jpg","2nd xc preparation":"4.jpg","tmf preparation":"3.jpg","toamasina tour":"2.jpg","tritriva r":"1.jpg","tmf|07/12/2025":"01.jpg","tmf|16/11/2025":"02.jpg","ivoloina":"X.jpg","saint marie":"Y.jpg","le pangalane":"Z.jpg"};
-    const eventImage = (path,alt,url) => { const key=String(alt||"").trim().toLowerCase(); const date=String(path||""); const original=originalRidePhotos[key] || (key==="tmf" ? (date.includes("07/12/2025")?"01.jpg":date.includes("16/11/2025")?"02.jpg":"") : ""); const src=original ? "https://501mtb.github.io/images/event/"+original : path; return src ? '<div class="event-photo">' + image(src,alt) + (url ? '<a class="story-link" href="'+safe(url)+'" target="_blank" rel="noopener" aria-label="More information: '+safe(alt)+'" title="More information">↗</a>' : '') + '</div>' : ""; };
-    const eventCard = r => '<article class="card past-ride-card upcoming-ride-card">'+eventImage(val(r,"image"),localized(r,"title"),val(r,"url"))+'<div class="ride-glass"><div class="ride-glass-side ride-glass-date"><strong>'+safe(val(r,"date_start"))+'</strong></div><div class="ride-glass-side ride-glass-location"><strong>'+safe(localized(r,"location"))+'</strong></div><div class="ride-glass-side ride-glass-title"><strong>'+safe(localized(r,"title"))+'</strong></div></div></article>';
+    const eventImage = (path,alt,url) => { const src=String(path||"").trim(); return src ? '<div class="event-photo">' + image(src,alt) + (url ? '<a class="story-link" href="'+safe(url)+'" target="_blank" rel="noopener" aria-label="More information: '+safe(alt)+'" title="More information">↗</a>' : '') + '</div>' : ""; };
+    const eventCard = r => '<article class="card past-ride-card upcoming-ride-card">'+eventImage(val(r,"image"),localized(r,"title"),val(r,"url"))+'<div class="ride-glass"><div class="ride-glass-side ride-glass-date"><strong>'+safe(dateLabel(val(r,"date_start")))+'</strong></div><div class="ride-glass-side ride-glass-location"><strong>'+safe(localized(r,"location"))+'</strong></div><div class="ride-glass-side ride-glass-title"><strong>'+safe(localized(r,"title"))+'</strong></div></div></article>';
     const pastRideCard = r => '<article class="card past-ride-card">'+eventImage(val(r,"image"),localized(r,"title"),val(r,"url"))+'<div class="ride-glass"><div class="ride-glass-side ride-glass-date"><strong>'+safe(val(r,"date_start"))+'</strong></div><div class="ride-glass-side ride-glass-location"><strong>'+safe(localized(r,"location"))+'</strong></div><div class="ride-glass-side ride-glass-title"><strong>'+safe(localized(r,"title"))+'</strong></div></div></article>';
     const renderEventLists = () => { renderCards("upcoming-events-list",upcomingEvents,eventCard,lang()==="fr"?"Aucune sortie à venir publiée.":lang()==="mg"?"Tsy mbola misy dia ho avy.":"No upcoming rides or events published."); renderCards("past-events-list",pastEvents,pastRideCard,lang()==="fr"?"Aucune sortie terminée publiée.":lang()==="mg"?"Tsy mbola misy dia vita.":"No completed rides or past events published."); document.querySelectorAll("[data-event-heading]").forEach(el=>{const k=el.dataset.eventHeading;el.textContent=lang()==="fr"?(k==="upcoming"?"Sorties et événements à venir":"Sorties terminées et événements passés"):lang()==="mg"?(k==="upcoming"?"Dia sy hetsika ho avy":"Dia vita sy hetsika lasa"):(k==="upcoming"?"Upcoming rides & events":"Completed rides & past events");}); };
     renderEventLists();
@@ -370,7 +360,7 @@ renderUsefulLinks();
       if(!window.XLSX){
         await new Promise((resolve,reject)=>{const s=document.createElement("script");s.src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js";s.onload=resolve;s.onerror=reject;document.head.appendChild(s);});
       }
-      const response=await fetch("./Classeur_501MTB_V2.xlsx?v=1",{cache:"no-store"});
+      const response=await fetch("./Classeur_501MTB_V2.xlsx?v=2",{cache:"no-store"});
       if(!response.ok)throw new Error("Workbook unavailable");
       const workbook=XLSX.read(await response.arrayBuffer(),{type:"array"});
       const sheet=workbook.Sheets.Events;
