@@ -190,8 +190,8 @@
 .pdp-orbit::before{content:"";position:absolute;inset:5px;border:1px solid rgba(255,255,255,.62);border-radius:50%;pointer-events:none;z-index:2}
 .pdp-orbit::after{content:none!important}
 .pdp-orbit img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;border-radius:50%;border:1px solid rgba(255,255,255,.55)}
-.pdp-section{justify-content:flex-end}.pdp-section .pdp-orbit{margin-left:auto!important;margin-right:clamp(24px,6vw,72px)!important;flex:0 0 auto;transform:translateY(0)}
-@media(max-width:600px){.pdp-section{min-height:260px;margin-top:-60px;padding:28px 14px}.pdp-section .pdp-orbit{width:min(62vw,230px);margin-right:10px!important;transform:translateY(0)}}
+.pdp-section{justify-content:center;gap:clamp(12px,3vw,36px)}.pdp-emblem{display:block;width:clamp(220px,38vw,360px);height:auto;max-height:300px;object-fit:contain;flex:0 1 360px;margin-left:clamp(10px,3vw,40px);border:0!important;outline:0!important;box-shadow:none!important;filter:none!important;background:transparent!important}.pdp-section .pdp-orbit{margin-left:0!important;margin-right:clamp(18px,4vw,52px)!important;flex:0 0 auto;transform:translateY(0)}
+@media(max-width:600px){.pdp-section{min-height:220px;margin-top:-60px;padding:22px 10px;gap:4px;align-items:center}.pdp-emblem{width:46%;flex:0 1 46%;max-height:none;margin-left:0}.pdp-section .pdp-orbit{width:46%;margin-right:0!important;transform:translateY(0);padding:3px}}
 
 </style>
 </head>
@@ -200,6 +200,7 @@
 <main>
 <section class="hero" id="home"><div class="hero-slides" id="hero-slides" aria-hidden="true"></div><div class="hero-inner"><div class="eyebrow" data-i18n="eyebrow">Mountain biking · Madagascar</div><h1 data-i18n="headline">Where <span>Legends</span> Rise</h1><p data-i18n="heroText">We develop and promote mountain biking in Madagascar by bringing riders together through events, trail rides and community support.</p></div></section>
 <section class="pdp-section" aria-label="501MTB brand profile">
+<img class="pdp-emblem" src="assets/images/501-mtb-emblem.webp" alt="501MTB mountain, forest and mountain-bike emblem">
 <div class="pdp-orbit"><img src="https://501mtb.github.io/images/home/pdp.jpg" alt="501MTB profile artwork: mountain nature and mountain biking"></div>
 </section>
 <section id="about"><div class="eyebrow" data-i18n="who">Who we are</div><h2 data-i18n="aboutTitle">Built by riders. <span>Driven by community.</span></h2><p class="intro" data-i18n="aboutText">501MTB is a mountain biking community in Toamasina, Madagascar, working to grow the sport, support riders and help more people discover the trails and the people behind them.</p></section>
