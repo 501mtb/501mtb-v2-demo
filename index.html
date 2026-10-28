@@ -190,8 +190,8 @@
 .pdp-orbit::before{content:"";position:absolute;inset:5px;border:1px solid rgba(255,255,255,.62);border-radius:50%;pointer-events:none;z-index:2}
 .pdp-orbit::after{content:none!important}
 .pdp-orbit img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;border-radius:50%;border:1px solid rgba(255,255,255,.55)}
-.pdp-section .pdp-orbit{margin-left:auto!important;margin-right:clamp(24px,6vw,72px)!important;flex:0 0 auto;transform:translateY(0)}
-@media(max-width:600px){.pdp-section{min-height:260px;margin-top:-60px;padding:28px 14px}.pdp-section .pdp-orbit{width:min(62vw,230px);margin-right:10px!important;transform:translateY(0)}}
+.pdp-section{gap:clamp(12px,3vw,38px);justify-content:center}.pdp-landscape{width:clamp(230px,38vw,340px);flex:0 1 340px;min-width:0;filter:drop-shadow(0 5px 10px rgba(0,0,0,.28));margin-left:clamp(12px,4vw,52px)}.pdp-landscape svg{display:block;width:100%;height:auto;overflow:visible}.pdp-section .pdp-orbit{margin-left:0!important;margin-right:clamp(18px,4vw,52px)!important;flex:0 0 auto;transform:translateY(0)}
+@media(max-width:600px){.pdp-section{min-height:220px;margin-top:-60px;padding:22px 10px;gap:4px;align-items:center}.pdp-landscape{width:48%;flex:0 1 48%;margin-left:0}.pdp-section .pdp-orbit{width:46%;margin-right:0!important;transform:translateY(0);padding:3px}.pdp-orbit img{width:100%;height:100%}}
 
 </style>
 </head>
@@ -199,7 +199,36 @@
 <header><div class="nav"><a class="brand" href="#home" aria-label="501MTB home"><img src="./assets/images/logo/logoh.png" alt="501MTB logo"></a><select id="language" aria-label="Language"><option value="en">EN</option><option value="fr">FR</option><option value="mg">MG</option></select><button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="main-nav"><span></span><span></span><span></span></button><nav id="main-nav" aria-label="Main navigation"><a href="#home" data-i18n="home">Home</a><a href="#about" data-i18n="about">About</a><a href="#values" data-i18n="values">Values</a><a href="#community" data-i18n="community">Community</a><a href="#events" data-i18n="eventsNav">Events</a><a href="#riders" data-i18n="ridersNav">Riders</a></nav></div></header>
 <main>
 <section class="hero" id="home"><div class="hero-slides" id="hero-slides" aria-hidden="true"></div><div class="hero-inner"><div class="eyebrow" data-i18n="eyebrow">Mountain biking · Madagascar</div><h1 data-i18n="headline">Where <span>Legends</span> Rise</h1><p data-i18n="heroText">We develop and promote mountain biking in Madagascar by bringing riders together through events, trail rides and community support.</p></div></section>
-<section class="pdp-section" aria-label="501MTB brand profile"><div class="pdp-orbit"><img src="https://501mtb.github.io/images/home/pdp.jpg" alt="501MTB profile artwork: mountain nature and mountain biking"></div></section>
+<section class="pdp-section" aria-label="501MTB brand profile">
+<div class="pdp-landscape" role="img" aria-label="501MTB mountain, trees and mountain-bike emblem">
+<svg viewBox="0 0 520 390" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<g fill="none" stroke="#f5f5f5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M28 180 112 62 155 111 213 20 288 105 330 79 405 173" stroke-width="9"/>
+<path d="M56 179 112 104 145 135 213 55 274 131 326 112 380 174" stroke-width="4"/>
+<path d="M43 265 72 215 94 258 116 198 141 259 167 221 191 268" stroke-width="5"/>
+<path d="M326 245 344 203 361 245 378 188 397 246 416 210 437 254" stroke-width="5"/>
+<path d="M151 254c-26-29-68-32-91-7 30-5 45 8 58 25-5-32-29-47-51-42 26 5 42 23 45 42-21-16-38-17-53-10 30 2 51 23 63 38 16-19 36-25 57-19-12-15-28-22-48-19" stroke-width="6"/>
+<path d="M125 310v-53m0 20-25-23m25 12 24-22m-24 48-17-15m17 5 19-14" stroke-width="7"/>
+<path d="M250 270c17-17 38-20 57-13m-38 13 22-18m-9 27 27-21m-3 27 28-17" stroke-width="4"/>
+</g>
+<g fill="#f5f5f5">
+<path d="M213 20 190 65 213 55 237 78 224 44 245 55Z"/>
+<path d="M112 62 95 96 112 88 129 101 120 75Z"/>
+<path d="M378 188 366 218 378 211 391 225 384 198Z"/>
+</g>
+<g fill="none" stroke="#f5f5f5" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="185" cy="294" r="28"/><circle cx="267" cy="294" r="28"/>
+<path d="m185 294 30-48 31 48h-61l25-39 27 0 30 39-25-47-20-7m-7-14 16-2 11 12m-20-12-8-13m-8 11 9-7"/>
+<circle cx="225" cy="216" r="8"/>
+</g>
+<path d="M8 307C123 391 279 379 365 313S466 284 512 306C422 359 328 390 224 383 126 376 50 348 8 307Z" fill="#06ff06"/>
+<path d="M18 313C135 379 280 368 367 315S465 293 499 306" fill="none" stroke="#f5f5f5" stroke-width="3"/>
+<text x="275" y="328" text-anchor="middle" fill="#f5f5f5" font-family="Arial,sans-serif" font-weight="900" font-size="39" letter-spacing="1">501 MTB</text>
+<text x="275" y="353" text-anchor="middle" fill="#f5f5f5" font-family="Arial,sans-serif" font-weight="700" font-size="15" letter-spacing="1">MOUNTAIN BIKING</text>
+</svg>
+</div>
+<div class="pdp-orbit"><img src="https://501mtb.github.io/images/home/pdp.jpg" alt="501MTB profile artwork: mountain nature and mountain biking"></div>
+</section>
 <section id="about"><div class="eyebrow" data-i18n="who">Who we are</div><h2 data-i18n="aboutTitle">Built by riders. <span>Driven by community.</span></h2><p class="intro" data-i18n="aboutText">501MTB is a mountain biking community in Toamasina, Madagascar, working to grow the sport, support riders and help more people discover the trails and the people behind them.</p></section>
 <section id="values"><div class="eyebrow" data-i18n="valuesEyebrow">Our values</div><h2 data-i18n="valuesTitle">Ride beyond <span>limits.</span></h2><div class="cards">
 <article class="card value-card"><div class="number">01</div><button class="value-toggle" type="button" aria-expanded="false" data-title-en="Discover Yourself" data-title-fr="Se découvrir" data-title-mg="Fantaro ny tenanao">Discover Yourself <span aria-hidden="true">＋</span></button><p data-i18n="value1Text">Challenge yourself and find out what you are capable of.</p><p class="value-long" hidden data-en="Mountain biking is a personal journey as much as physical challenge. Every climb, every descent, and obstacle reveals something new about who you are. Through effort, pain, and persistence, riders learn their limits—and learn how to go beyond them. We believe every ride is an opportunity for self-growth, confidence, and mental strength." data-fr="Ny VTT dia dia iray ahafantarana ny tena, sady fanamby ara-batana. Ny fiakarana, ny fidinana ary ny sakana tsirairay dia mampahafantatra zavatra vaovao momba anao. Amin’ny ezaka, ny fahasahiranana ary ny fikirizana, mianatra ny fetrany ny mpitaingina ary mianatra mihoatra izany. Mino izahay fa ny dia tsirairay dia fotoana hampitomboana ny tena, ny fahatokisan-tena ary ny tanjaka ara-tsaina." data-mg="Le VTT est autant un parcours personnel qu’un défi physique. Chaque montée, chaque descente et chaque obstacle révèle quelque chose de nouveau sur soi. Par l’effort, la difficulté et la persévérance, les riders découvrent leurs limites et apprennent à les dépasser. Chaque sortie est une occasion de grandir, de renforcer la confiance en soi et la force mentale."></p></article>
