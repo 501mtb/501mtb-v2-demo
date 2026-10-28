@@ -144,17 +144,16 @@
 #home .hero-slide.is-active{opacity:1;transform:translateX(0) scale(1)}
 #home .hero-slide.slide-from-left{transform:translateX(-5%) scale(1.025)}
 #home .hero-slide.slide-from-right{transform:translateX(5%) scale(1.025)}
-#home .hero-slides:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.52),rgba(0,0,0,.72) 55%,rgba(0,0,0,.88)),linear-gradient(90deg,rgba(0,0,0,.3),transparent 50%,rgba(0,0,0,.3))}
-#home .hero-inner{position:relative;z-index:1;text-shadow:0 2px 10px rgba(0,0,0,.8)}
+#home .hero-inner{position:relative;z-index:1;width:fit-content;max-width:min(850px,100%);margin:0 auto;padding:clamp(18px,3vw,32px);background:rgba(0,0,0,.48);border:1px solid rgba(255,255,255,.14);border-radius:14px;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);box-shadow:0 8px 28px rgba(0,0,0,.22);text-shadow:0 2px 8px rgba(0,0,0,.95)}
 @media(max-width:720px){
 #home.hero{min-height:520px;aspect-ratio:auto}
 #home .hero-slide{background-size:auto 100%;background-position:left center;transform:none!important;transition:opacity .7s ease}
 #home .hero-slide.is-active{opacity:1}
 #home .hero-slide.pan-left{animation:heroPanLeft 6s linear forwards}
 #home .hero-slide.pan-right{animation:heroPanRight 6s linear forwards}
+#home .hero-inner{width:100%;padding:18px 14px;background:rgba(0,0,0,.48)}
 @keyframes heroPanLeft{from{background-position:left center}to{background-position:right center}}
 @keyframes heroPanRight{from{background-position:right center}to{background-position:left center}}
-#home .hero-slides:after{background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.72) 58%,rgba(0,0,0,.9))}
 }
 @media(prefers-reduced-motion:reduce){#home .hero-slide{transition:none!important;animation:none!important}}
 @media(prefers-reduced-motion:reduce){#home .hero-slide{transition:none}}
