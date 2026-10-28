@@ -99,10 +99,27 @@
 #riders-list .story-photo img,#leaders-list .story-photo img{position:absolute!important;inset:0!important;display:block!important;width:100%!important;height:100%!important;max-height:none!important;aspect-ratio:auto!important;object-fit:cover!important;margin:0!important}
 #riders-list .story-link,#leaders-list .story-link{position:absolute!important;left:9px!important;bottom:9px!important;z-index:5!important}
 @media(min-width:721px){#riders-list,#leaders-list{grid-auto-columns:190px!important}#riders-list>.card,#leaders-list>.card{width:190px!important;min-width:190px!important;max-width:190px!important}}
+
+/* Header order: logo, language selector, hamburger navigation */
+.nav{position:relative;gap:14px}
+.brand{display:flex;align-items:center;flex:1 1 auto;min-width:0}
+.brand img{display:block;width:auto;height:44px;max-width:min(44vw,190px);object-fit:contain;object-position:left center}
+#language{flex:0 0 auto;order:2}
+.menu-toggle{order:3;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:42px;padding:8px;background:transparent;border:1px solid #555;border-radius:5px;cursor:pointer}
+.menu-toggle span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:transform .2s,opacity .2s}
+.menu-toggle[aria-expanded="true"] span:first-child{transform:translateY(7px) rotate(45deg)}
+.menu-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+.menu-toggle[aria-expanded="true"] span:last-child{transform:translateY(-7px) rotate(-45deg)}
+#main-nav{display:none;position:absolute;top:calc(100% + 1px);right:22px;z-index:10;min-width:210px;max-width:calc(100vw - 44px);padding:10px;background:#090909;border:1px solid #303030;border-radius:8px;box-shadow:0 12px 30px #000b;flex-direction:column;align-items:stretch;gap:0;flex-wrap:nowrap}
+#main-nav.is-open{display:flex}
+#main-nav a{display:block;padding:11px 14px;border-radius:4px;font-size:.95rem}
+#main-nav a:hover,#main-nav a:focus-visible{background:#151f15;color:var(--green)}
+@media(max-width:420px){.nav{padding:12px 14px;gap:10px}.brand img{height:38px;max-width:44vw}#main-nav{right:14px;max-width:calc(100vw - 28px)}}
+
 </style>
 </head>
 <body>
-<header><div class="nav"><a class="brand" href="#home" aria-label="501MTB home"><img src="./assets/images/logo/logoh.png" alt="501MTB logo"></a><nav aria-label="Main navigation"><a href="#home" data-i18n="home">Home</a><a href="#about" data-i18n="about">About</a><a href="#values" data-i18n="values">Values</a><a href="#community" data-i18n="community">Community</a><a href="#events" data-i18n="eventsNav">Events</a><a href="#riders" data-i18n="ridersNav">Riders</a><select id="language" aria-label="Language"><option value="en">EN</option><option value="fr">FR</option><option value="mg">MG</option></select></nav></div></header>
+<header><div class="nav"><a class="brand" href="#home" aria-label="501MTB home"><img src="./assets/images/logo/logoh.png" alt="501MTB logo"></a><select id="language" aria-label="Language"><option value="en">EN</option><option value="fr">FR</option><option value="mg">MG</option></select><button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="main-nav"><span></span><span></span><span></span></button><nav id="main-nav" aria-label="Main navigation"><a href="#home" data-i18n="home">Home</a><a href="#about" data-i18n="about">About</a><a href="#values" data-i18n="values">Values</a><a href="#community" data-i18n="community">Community</a><a href="#events" data-i18n="eventsNav">Events</a><a href="#riders" data-i18n="ridersNav">Riders</a></nav></div></header>
 <main>
 <section class="hero" id="home"><div class="hero-inner"><div class="eyebrow" data-i18n="eyebrow">Mountain biking · Madagascar</div><h1 data-i18n="headline">Where <span>Legends</span> Rise</h1><p data-i18n="heroText">We develop and promote mountain biking in Madagascar by bringing riders together through events, trail rides and community support.</p><div class="actions"><a class="button primary" href="#about" data-i18n="discover">Discover 501MTB</a><a class="button" href="https://501mtb.github.io/" data-i18n="visit">Visit current website</a></div></div></section>
 <section id="about"><div class="eyebrow" data-i18n="who">Who we are</div><h2 data-i18n="aboutTitle">Built by riders. <span>Driven by community.</span></h2><p class="intro" data-i18n="aboutText">501MTB is a mountain biking community in Toamasina, Madagascar, working to grow the sport, support riders and help more people discover the trails and the people behind them.</p></section>
@@ -179,6 +196,25 @@ document.getElementById("year").textContent=new Date().getFullYear();
       document.getElementById(id).innerHTML = '<article class="card"><p>Content is not available yet. Upload <strong>Classeur_501MTB_V2.xlsx</strong> to the root of the V2 repository.</p></article>';
     });
   }
+})();
+</script>
+
+
+<script>
+(function(){
+  const toggle=document.getElementById("menu-toggle");
+  const menu=document.getElementById("main-nav");
+  if(!toggle||!menu)return;
+  const closeMenu=()=>{menu.classList.remove("is-open");toggle.setAttribute("aria-expanded","false");toggle.setAttribute("aria-label","Open navigation menu");};
+  toggle.addEventListener("click",()=>{
+    const opening=toggle.getAttribute("aria-expanded")!=="true";
+    menu.classList.toggle("is-open",opening);
+    toggle.setAttribute("aria-expanded",String(opening));
+    toggle.setAttribute("aria-label",opening?"Close navigation menu":"Open navigation menu");
+  });
+  menu.querySelectorAll("a").forEach(link=>link.addEventListener("click",closeMenu));
+  document.addEventListener("keydown",event=>{if(event.key==="Escape")closeMenu();});
+  document.addEventListener("click",event=>{if(!menu.contains(event.target)&&!toggle.contains(event.target))closeMenu();});
 })();
 </script>
 
