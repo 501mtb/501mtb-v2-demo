@@ -190,7 +190,8 @@
 .pdp-orbit::before{content:"";position:absolute;inset:5px;border:1px solid rgba(255,255,255,.62);border-radius:50%;pointer-events:none;z-index:2}
 .pdp-orbit::after{content:none!important}
 .pdp-orbit img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;border-radius:50%;border:1px solid rgba(255,255,255,.55)}
-@media(max-width:600px){.pdp-section{min-height:260px;padding:28px 24px 28px 14px}.pdp-orbit{width:min(62vw,230px)}}
+.pdp-section .pdp-orbit{margin-left:auto!important;margin-right:clamp(24px,6vw,72px)!important;flex:0 0 auto}
+@media(max-width:600px){.pdp-section{min-height:260px;padding:28px 14px}.pdp-section .pdp-orbit{width:min(62vw,230px);margin-right:10px!important}}
 
 </style>
 </head>
