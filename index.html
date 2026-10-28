@@ -136,12 +136,23 @@
   .menu-toggle{order:3!important;flex:0 0 42px!important;width:42px!important;height:42px!important}
   #main-nav{top:calc(100% + 1px)!important;right:14px!important;left:auto!important}
 }
+
+/* Event-photo hero slider */
+#home.hero{position:relative;isolation:isolate;overflow:hidden;background:#050505;min-height:72vh}
+#home .hero-slides{position:absolute;inset:0;z-index:-1;overflow:hidden;background:#050505}
+#home .hero-slide{position:absolute;inset:0;background-position:center;background-size:cover;background-repeat:no-repeat;opacity:0;transform:scale(1.025);transition:opacity 1.1s ease,transform 6s ease}
+#home .hero-slide.is-active{opacity:1;transform:scale(1)}
+#home .hero-slides:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.52),rgba(0,0,0,.72) 55%,rgba(0,0,0,.88)),linear-gradient(90deg,rgba(0,0,0,.3),transparent 50%,rgba(0,0,0,.3))}
+#home .hero-inner{position:relative;z-index:1;text-shadow:0 2px 10px rgba(0,0,0,.8)}
+@media(max-width:720px){#home.hero{min-height:70vh}#home .hero-slides:after{background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.72) 58%,rgba(0,0,0,.9))}}
+@media(prefers-reduced-motion:reduce){#home .hero-slide{transition:none}}
+
 </style>
 </head>
 <body>
 <header><div class="nav"><a class="brand" href="#home" aria-label="501MTB home"><img src="./assets/images/logo/logoh.png" alt="501MTB logo"></a><select id="language" aria-label="Language"><option value="en">EN</option><option value="fr">FR</option><option value="mg">MG</option></select><button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="main-nav"><span></span><span></span><span></span></button><nav id="main-nav" aria-label="Main navigation"><a href="#home" data-i18n="home">Home</a><a href="#about" data-i18n="about">About</a><a href="#values" data-i18n="values">Values</a><a href="#community" data-i18n="community">Community</a><a href="#events" data-i18n="eventsNav">Events</a><a href="#riders" data-i18n="ridersNav">Riders</a></nav></div></header>
 <main>
-<section class="hero" id="home"><div class="hero-inner"><div class="eyebrow" data-i18n="eyebrow">Mountain biking · Madagascar</div><h1 data-i18n="headline">Where <span>Legends</span> Rise</h1><p data-i18n="heroText">We develop and promote mountain biking in Madagascar by bringing riders together through events, trail rides and community support.</p><div class="actions"><a class="button primary" href="#about" data-i18n="discover">Discover 501MTB</a><a class="button" href="https://501mtb.github.io/" data-i18n="visit">Visit current website</a></div></div></section>
+<section class="hero" id="home"><div class="hero-slides" id="hero-slides" aria-hidden="true"></div><div class="hero-inner"><div class="eyebrow" data-i18n="eyebrow">Mountain biking · Madagascar</div><h1 data-i18n="headline">Where <span>Legends</span> Rise</h1><p data-i18n="heroText">We develop and promote mountain biking in Madagascar by bringing riders together through events, trail rides and community support.</p><div class="actions"><a class="button primary" href="#about" data-i18n="discover">Discover 501MTB</a><a class="button" href="https://501mtb.github.io/" data-i18n="visit">Visit current website</a></div></div></section>
 <section id="about"><div class="eyebrow" data-i18n="who">Who we are</div><h2 data-i18n="aboutTitle">Built by riders. <span>Driven by community.</span></h2><p class="intro" data-i18n="aboutText">501MTB is a mountain biking community in Toamasina, Madagascar, working to grow the sport, support riders and help more people discover the trails and the people behind them.</p></section>
 <section id="values"><div class="eyebrow" data-i18n="valuesEyebrow">Our values</div><h2 data-i18n="valuesTitle">Ride beyond <span>limits.</span></h2><div class="cards"><article class="card"><div class="number">01</div><h3 data-i18n="value1">Discover Yourself</h3><p data-i18n="value1Text">Challenge yourself and find out what you are capable of.</p></article><article class="card"><div class="number">02</div><h3 data-i18n="value2">Broaden Your Horizon</h3><p data-i18n="value2Text">Learn new skills, meet new people and see places differently.</p></article><article class="card"><div class="number">03</div><h3 data-i18n="value3">Explore The World</h3><p data-i18n="value3Text">Discover Madagascar one ride, one trail and one community at a time.</p></article></div></section>
 
@@ -235,6 +246,54 @@ document.getElementById("year").textContent=new Date().getFullYear();
   menu.querySelectorAll("a").forEach(link=>link.addEventListener("click",closeMenu));
   document.addEventListener("keydown",event=>{if(event.key==="Escape")closeMenu();});
   document.addEventListener("click",event=>{if(!menu.contains(event.target)&&!toggle.contains(event.target))closeMenu();});
+})();
+</script>
+
+
+<script>
+(function(){
+  const container=document.getElementById("hero-slides");
+  const hero=document.getElementById("home");
+  if(!container||!hero)return;
+  const safeUrl=value=>String(value||"").trim();
+  const imageFor=(row)=>{
+    const path=safeUrl(row.image);
+    if(!path)return "";
+    const title=String(row.title_en||row.title_fr||row.title_mg||row.title||"").trim().toLowerCase();
+    const date=String(row.date_start||"");
+    const known={"vohitrambato bassindrano":"10.jpg","antanambaovao tmf":"9.jpg","501 world bicycle day":"8.jpg","video shooting":"7.jpg","2nd xc antanambaotrail":"6.jpg","2nd xc trail survey":"5.jpg","2nd xc preparation":"4.jpg","tmf preparation":"3.jpg","toamasina tour":"2.jpg","tritriva r":"1.jpg","tmf|07/12/2025":"01.jpg","tmf|16/11/2025":"02.jpg","ivoloina":"X.jpg","saint marie":"Y.jpg","le pangalane":"Z.jpg"};
+    const original=known[title]||(title==="tmf"?(date.includes("07/12/2025")?"01.jpg":date.includes("16/11/2025")?"02.jpg":""):"");
+    if(original)return "https://501mtb.github.io/images/event/"+original;
+    if(/^https?:\/\//i.test(path)||path.startsWith("./")||path.startsWith("../")||path.startsWith("/"))return path;
+    return "./"+path.replace(/^\.\//,"");
+  };
+  const init=async()=>{
+    try{
+      if(!window.XLSX){
+        await new Promise((resolve,reject)=>{const s=document.createElement("script");s.src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js";s.onload=resolve;s.onerror=reject;document.head.appendChild(s);});
+      }
+      const response=await fetch("./Classeur_501MTB_V2.xlsx?v=1",{cache:"no-store"});
+      if(!response.ok)throw new Error("Workbook unavailable");
+      const workbook=XLSX.read(await response.arrayBuffer(),{type:"array"});
+      const sheet=workbook.Sheets.Events;
+      if(!sheet)return;
+      const rows=XLSX.utils.sheet_to_json(sheet,{defval:"",raw:false});
+      const photos=rows.filter(row=>["planned","open","completed"].includes(String(row.status||"").trim().toLowerCase())).map(imageFor).filter(Boolean);
+      const unique=[...new Set(photos)];
+      if(!unique.length)return;
+      container.innerHTML=unique.map((url,i)=>'<div class="hero-slide'+(i===0?' is-active':'')+'" style="background-image:url(&quot;'+url.replace(/&/g,"%26").replace(/&quot;/g,"%22")+'&quot;)" aria-hidden="true"></div>').join("");
+      const slides=[...container.querySelectorAll(".hero-slide")];
+      if(slides.length<2)return;
+      let index=0, timer=null, resumeTimer=null, scrolling=false;
+      const stop=()=>{if(timer){clearInterval(timer);timer=null;}};
+      const start=()=>{stop();if(document.hidden||scrolling)return;timer=setInterval(()=>{slides[index].classList.remove("is-active");index=(index+1)%slides.length;slides[index].classList.add("is-active");},5000);};
+      const onScroll=()=>{scrolling=true;stop();clearTimeout(resumeTimer);resumeTimer=setTimeout(()=>{scrolling=false;start();},1800);};
+      window.addEventListener("scroll",onScroll,{passive:true});
+      document.addEventListener("visibilitychange",()=>{if(document.hidden)stop();else start();});
+      start();
+    }catch(error){/* Keep the existing dark hero background if event photos cannot load. */}
+  };
+  init();
 })();
 </script>
 
