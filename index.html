@@ -158,6 +158,8 @@
 @media(prefers-reduced-motion:reduce){#home .hero-slide{transition:none!important;animation:none!important}}
 @media(prefers-reduced-motion:reduce){#home .hero-slide{transition:none}}
 
+
+@media(min-width:721px){#home .hero-slide{transform:translateY(5%) scale(1.025)}#home .hero-slide.is-active{transform:translateY(0) scale(1)}#home .hero-slide.slide-from-top{transform:translateY(-5%) scale(1.025)}#home .hero-slide.slide-from-bottom{transform:translateY(5%) scale(1.025)}}
 </style>
 </head>
 <body>
@@ -300,11 +302,11 @@ document.getElementById("year").textContent=new Date().getFullYear();
       const mobileView=()=>window.matchMedia("(max-width:720px)").matches;
       const stop=()=>{if(timer){clearInterval(timer);timer=null;}};
       const activateNext=()=>{
-        slides[index].classList.remove("is-active","slide-from-left","slide-from-right","pan-left","pan-right");
+        slides[index].classList.remove("is-active","slide-from-top","slide-from-bottom","pan-left","pan-right");
         index=(index+1)%slides.length;
-        slides[index].classList.remove("slide-from-left","slide-from-right","pan-left","pan-right");
+        slides[index].classList.remove("slide-from-top","slide-from-bottom","pan-left","pan-right");
         if(mobileView()) slides[index].classList.add(Math.random()<0.5?"pan-left":"pan-right");
-        else slides[index].classList.add(Math.random()<0.5?"slide-from-left":"slide-from-right");
+        else slides[index].classList.add(Math.random()<0.5?"slide-from-top":"slide-from-bottom");
         void slides[index].offsetWidth;
         slides[index].classList.add("is-active");
       };
