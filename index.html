@@ -89,6 +89,13 @@
 #leaders-list .story-photo{aspect-ratio:3/4!important;width:100%!important;height:auto!important;overflow:hidden!important}
 #leaders-list .story-photo img{width:100%!important;height:100%!important;aspect-ratio:3/4!important;object-fit:cover!important;max-height:none!important}
 @media(min-width:721px){#riders-list,#leaders-list{grid-template-columns:repeat(2,190px)!important;grid-auto-columns:190px!important}#riders-list>.card,#leaders-list>.card{width:190px!important;min-width:190px!important;max-width:190px!important}}
+
+/* Correct fixed portrait ratios for Riders and Team Leaders */
+#riders-list .story-photo,#leaders-list .story-photo{position:relative!important;display:block!important;width:100%!important;height:auto!important;margin:0!important;overflow:hidden!important;background:#080808!important}
+#riders-list .story-photo{aspect-ratio:9/16!important}
+#leaders-list .story-photo{aspect-ratio:3/4!important}
+#riders-list .story-photo img,#leaders-list .story-photo img{position:absolute!important;inset:0!important;display:block!important;width:100%!important;height:100%!important;max-height:none!important;aspect-ratio:auto!important;object-fit:cover!important;margin:0!important}
+#riders-list .story-link,#leaders-list .story-link{position:absolute!important;left:9px!important;bottom:9px!important;z-index:5!important}
 </style>
 </head>
 <body>
