@@ -139,7 +139,7 @@
 
 /* Event-photo hero slider */
 #home.hero{position:relative;isolation:isolate;overflow:hidden;background:#050505;min-height:clamp(430px,56vw,680px);aspect-ratio:auto;width:100%;height:auto;display:flex;align-items:center}
-#home .hero-slides{position:absolute;inset:0;z-index:0;overflow:hidden;background:#050505}
+#home .hero-slides{position:absolute;inset:0;z-index:0;overflow:hidden;background:#050505!important;background-image:none!important}
 #home .hero-slide{position:absolute;inset:0;background-position:center;background-size:cover;background-repeat:no-repeat;opacity:0;transform:translateX(5%) scale(1.025);transition:opacity .7s ease,transform 1s ease}
 #home .hero-slide.is-active{opacity:1;transform:translateX(0) scale(1)}
 #home .hero-slide.slide-from-left{transform:translateX(-5%) scale(1.025)}
@@ -184,8 +184,8 @@
 @media(max-width:720px){#home .hero-inner{padding:0 8px}#home .hero h1{margin:12px 0}#home .hero p{margin:12px auto}}
 
 /* PDP inspired by V1: circular artwork immediately below the hero */
-.pdp-section{position:relative;isolation:isolate;display:grid;place-items:center;min-height:300px;padding:34px 20px;max-width:none;overflow:hidden;background:#050505}
-.pdp-section::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at center,#102010 0%,#080b08 48%,#050505 78%)}
+.pdp-section{position:relative;isolation:isolate;display:grid;place-items:center;min-height:300px;padding:34px 20px;max-width:none;overflow:hidden;background:#050505!important;background-image:none!important}
+.pdp-section::before{content:"";position:absolute;inset:0;z-index:-1;background:none!important}
 .pdp-orbit{position:relative;width:clamp(210px,42vw,290px);aspect-ratio:1;border-radius:50%;padding:7px;background:conic-gradient(from 20deg,#06ff06,#b8ffb8 12%,#183d20 23%,#06ff06 36%,#0c160d 48%,#06ff06 63%,#b8ffb8 75%,#183d20 87%,#06ff06);box-shadow:0 0 0 2px #06ff0670,0 0 28px #06ff0645, inset 0 0 15px #000;overflow:hidden}
 .pdp-orbit::before{content:"";position:absolute;inset:5px;border:1px solid #e5ffe5b5;border-radius:50%;pointer-events:none;z-index:2}
 .pdp-orbit::after{content:"501 MTB  •  WHERE LEGENDS RISE  •  501 MTB";position:absolute;inset:0;border-radius:50%;display:grid;place-items:end center;padding:0 0 12%;color:#fff;font-size:clamp(8px,1.7vw,11px);font-weight:900;letter-spacing:2px;text-shadow:0 2px 5px #000;background:linear-gradient(transparent 55%,rgba(0,0,0,.55));pointer-events:none;z-index:1}
