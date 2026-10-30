@@ -275,8 +275,9 @@ document.querySelectorAll("#values .value-toggle").forEach(button=>{
     el.innerHTML = rows.length ? rows.map(build).join("") : '<article class="card"><p>'+safe(emptyText)+'</p></article>';
   }
   function localized(row, base){
+    // Keep each language isolated: never fill a missing MG field with French (or vice versa).
     const l=lang();
-    return val(row, base+"_"+l) || val(row, base+"_en") || val(row, base+"_fr") || val(row, base+"_mg") || "";
+    return val(row, base+"_"+l);
   }
   try {
     const response = await fetch("./Classeur_501MTB_V2.xlsx?v=2", {cache:"no-store"});
