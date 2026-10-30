@@ -245,6 +245,7 @@ mg:{home:"Fandraisana",about:"Mombamomba",values:"Soatoavina",community:"Fiaraha
 };
 function setLanguage(lang){document.documentElement.lang=lang;document.querySelectorAll("[data-i18n]").forEach(el=>{const key=el.dataset.i18n;if(translations[lang][key])el.innerHTML=translations[lang][key]});document.querySelectorAll("#values .value-toggle").forEach(button=>{const title=button.dataset["title"+lang.toUpperCase()];if(title){const mark=button.querySelector("span");button.childNodes[0].textContent=title+" ";}const card=button.closest(".value-card");const long=card.querySelector(".value-long");if(button.getAttribute("aria-expanded")==="true")long.textContent=long.dataset[lang]||long.dataset.en;});}
 document.getElementById("language").addEventListener("change",e=>setLanguage(e.target.value));
+setLanguage(document.getElementById("language").value);
 document.getElementById("year").textContent=new Date().getFullYear();
 
 document.querySelectorAll("#values .value-toggle").forEach(button=>{
