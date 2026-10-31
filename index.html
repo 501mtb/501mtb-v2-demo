@@ -283,6 +283,18 @@
   }
 }
 
+/* Malagasy hero headline is longer; use a tighter mobile scale so it stays in-frame */
+@media(max-width:720px){
+  html[lang="mg"] #home .hero h1{
+    font-size:clamp(1.15rem,5.4vw,2rem);
+    line-height:1.16;
+    letter-spacing:-.35px;
+    max-width:100%;
+    overflow-wrap:anywhere;
+    text-wrap:balance;
+  }
+}
+
 </style>
 </head>
 <body>
