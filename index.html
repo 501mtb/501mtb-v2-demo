@@ -269,6 +269,20 @@
 #links-list .useful-link-category, #mtb-facebook-share {
   font-family:"Ethnocentric",Arial,Helvetica,sans-serif;
 }
+/* Mobile hero title: keep the full MADAGASCAR heading inside the screen */
+@media(max-width:720px){
+  #home .hero-inner{width:100%;max-width:100%;min-width:0}
+  #home .hero h1{
+    width:100%;
+    max-width:100%;
+    font-size:clamp(1.55rem,7.2vw,2.8rem);
+    line-height:1.08;
+    letter-spacing:0;
+    overflow-wrap:anywhere;
+    word-break:normal;
+  }
+}
+
 </style>
 </head>
 <body>
